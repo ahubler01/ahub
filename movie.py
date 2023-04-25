@@ -69,21 +69,6 @@ if genre_masks:
 else:
     mask = (df['runtime'].between(*runtime_selection)) & (df['imdb_score'].between(*imdb_score_selection))
 
-# --- FILTER DATAFRAME BASED ON SELECTED TYPE
-if 'MOVIE' in type_selection:
-    mask &= (df['type'] == 'MOVIE')
-if 'SHOW' in type_selection:
-    mask &= (df['type'] == 'SHOW')
-
-# --- FILTER DATAFRAME BASED ON SELECTED SELECTED YEAR RANGE
-if '1901 to 1990' in year_selection:
-    mask &= (df['release_year'].between(1901,1990))
-if '1990 to 2000' in year_selection:
-    mask &= (df['release_year'].between(1990,2000))
-if '2000 to 2010' in year_selection:
-    mask &= (df['release_year'].between(2000,2010))
-if '2010 to 2023' in year_selection:
-    mask &= (df['release_year'].between(2010,2023))
 
 number_of_result = df[mask].shape[0]
 
