@@ -5,7 +5,7 @@ try:
   __import__('pkg_resources').declare_namespace(__name__)
 except ImportError:
   __path__ = __import__('pkgutil').extend_path(__path__, __name__)
-
+  
 st.set_page_config(page_title='Find your movie')
 logo = "logo.png"
 st.image(logo, width=150, caption="", use_column_width=False)
