@@ -9,19 +9,6 @@ st.image(logo, width=150, caption="", use_column_width=False)
 st.header('Helping you focus more on the chill then the Netflix')
 st.subheader('Please select your criterias')
 
-
-### --- LOAD DATAFRAME
-excel_file = 'titles_expanded_platforms.xlsx'
-sheet_name = 'Titles'
-
-df = pd.read_excel(excel_file,
-                   sheet_name=sheet_name,
-                   usecols='A:AP')
-
-# Remove films where the imdb votes is lower than 204
-df = df.sort_values('imdb_votes')
-df = df[df['imdb_votes'] >= 204]
-
 # Define the year ranges
 year_ranges = {
     '1901 to 1990': (1901, 1990),
@@ -39,7 +26,7 @@ type_selection = st.multiselect('Type of content:',
 runtime_selection = st.slider('Runtime in minutes:',
                         min_value= 15,
                         max_value= 240,
-                        value=(15,240))
+                        value=(15,200))
 
 #Slidebar for imdb score
 imdb_score_selection = st.slider('IMDB score:',
@@ -60,6 +47,11 @@ year_selection = st.multiselect('Release Year Range', list(year_ranges.keys()))
 platforms_options = ['netflix','hbomax','amazonprime','paramount','appletv','disney']
 platforms_selection = st.multiselect('Platforms:',
                                     platforms_options)
+
+
+df = pd.read_excel('titles_expanded_platforms.xlsx',
+                   'Titles',
+                   usecols='A:AP')
 
 # --- FILTER DATAFRAME BASED ON SELECTION
 genre_masks = []
@@ -101,8 +93,3 @@ st.markdown(f'Available Results: {number_of_result}')
 df_grouped = df[mask].groupby(by=['title','type','platforms','release_year','all_genres','imdb_score','runtime']).count().reset_index()
 st.subheader('Our selection !')
 df_grouped.sample(n=15).reset_index()[['title','type','platforms','release_year','all_genres','imdb_score','runtime']]
-
-
-
-
-
