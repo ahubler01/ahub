@@ -84,6 +84,20 @@ if '2000 to 2010' in year_selection:
     mask &= (df['release_year'].between(2000,2010))
 if '2010 to 2023' in year_selection:
     mask &= (df['release_year'].between(2010,2023))
+    
+
+# --- FILTER DATAFRAME BASED ON SELECTED PLATFORMS
+platform_masks = []
+for platform in platforms_selection:
+    if platform in platforms_options:
+        platform_masks.append(df[platform] == 1)
+
+if platform_masks:
+    platform_mask = platform_masks[0]
+    for mask in platform_masks[1:]:
+        platform_mask |= mask
+    mask &= platform_mask
+
 
 number_of_result = df[mask].shape[0]
 
