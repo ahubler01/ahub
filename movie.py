@@ -86,10 +86,8 @@ if '2010 to 2023' in year_selection:
     mask &= (df['release_year'].between(2010,2023))
 
 number_of_result = df[mask].shape[0]
-st.markdown(f'Available Results: {number_of_result}')
-
 
 ## --- GROUP DATAFRAME AFTER SELECTION
-df_grouped = df[mask].groupby(by=['title','type','platforms','release_year','all_genres','imdb_score','runtime']).count().reset_index()
 st.subheader('Our selection !')
+df_grouped = df[mask].groupby(by=['title','type','platforms','release_year','all_genres','imdb_score','runtime']).count().reset_index()
 df_grouped.sample(n=15).reset_index()[['title','type','platforms','release_year','all_genres','imdb_score','runtime']]
