@@ -2,8 +2,6 @@ import pandas as pd
 import streamlit as st
 import openpyxl
 
-
-  
 st.set_page_config(page_title='Find your movie')
 logo = "logo.png"
 st.image(logo, width=150, caption="", use_column_width=False)
@@ -23,36 +21,6 @@ df = pd.read_excel(excel_file,
 df = df.sort_values('imdb_votes')
 df = df[df['imdb_votes'] >= 204]
 
-# --- STREAMLIT SELECTION
-
-#Streming platforms
-netflix = df['netflix'].unique().tolist()
-hbomax = df['hbomax'].unique().tolist()
-amazonprime = df['amazonprime'].unique().tolist()
-disney = df['disney'].unique().tolist()
-paramount = df['paramount'].unique().tolist()
-appletv = df['appletv'].unique().tolist()
-
-#Runtime
-runtime = df['runtime'].unique().tolist()
-
-#IMDB score
-imdb_score = df['imdb_score'].unique().tolist()
-
-#Genres
-genre_1 = df['genre_1'].unique().tolist()
-genre_2 = df['genre_2'].unique().tolist()
-genre_3 = df['genre_3'].unique().tolist()
-genre_4 = df['genre_4'].unique().tolist()
-genre_5 = df['genre_5'].unique().tolist()
-genre_6 = df['genre_6'].unique().tolist()
-genre_7 = df['genre_7'].unique().tolist()
-genre_8 = df['genre_8'].unique().tolist()
-genre_9 = df['genre_9'].unique().tolist()
-genre_10 = df['genre_10'].unique().tolist()
-genre_11 = df['genre_11'].unique().tolist()
-genre_12 = df['genre_12'].unique().tolist()
-
 # Define the year ranges
 year_ranges = {
     '1901 to 1990': (1901, 1990),
@@ -61,18 +29,16 @@ year_ranges = {
     '2010 to 2023': (2010, 2023)
 }
 
-#Type
-type_options = df['type'].unique().tolist()
-
 # Multiselect for type
+type_options = ['MOVIE','SHOW']
 type_selection = st.multiselect('Type of content:',
                                     type_options)
 
 #Slidebar for runtime
 runtime_selection = st.slider('Runtime in minutes:',
-                        min_value= min(runtime),
+                        min_value= 15,
                         max_value= 240,
-                        value=(min(runtime),240))
+                        value=(15,240))
 
 #Slidebar for imdb score
 imdb_score_selection = st.slider('IMDB score:',
@@ -134,8 +100,6 @@ st.markdown(f'Available Results: {number_of_result}')
 df_grouped = df[mask].groupby(by=['title','type','platforms','release_year','all_genres','imdb_score','runtime']).count().reset_index()
 st.subheader('Our selection !')
 df_grouped.sample(n=15).reset_index()[['title','type','platforms','release_year','all_genres','imdb_score','runtime']]
-
-
 
 
 
