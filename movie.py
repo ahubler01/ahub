@@ -25,7 +25,7 @@ type_selection = st.multiselect('Type of content:',
 #Slidebar for runtime
 runtime_selection = st.slider('Runtime in minutes:',
                         min_value= 15,
-                        max_value= 240,
+                        max_value= 200,
                         value=(15,200))
 
 #Slidebar for imdb score
