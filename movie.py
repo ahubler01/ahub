@@ -86,9 +86,10 @@ if '2010 to 2023' in year_selection:
     mask &= (df['release_year'].between(2010,2023))
 
 number_of_result = df[mask].shape[0]
-number_of_result
+
 
 ## --- GROUP DATAFRAME AFTER SELECTION
 st.subheader('Our selection !')
 df_grouped = df[mask].groupby(by=['title','type','platforms']).count().reset_index()
 df_grouped.head(15).reset_index()[['title','type','platforms']]
+number_of_result
