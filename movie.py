@@ -1,6 +1,10 @@
 import pandas as pd
 import streamlit as st
 
+try:
+  __import__('pkg_resources').declare_namespace(__name__)
+except ImportError:
+  __path__ = __import__('pkgutil').extend_path(__path__, __name__)
 
 st.set_page_config(page_title='Find your movie')
 logo = "logo.png"
