@@ -90,5 +90,5 @@ number_of_result
 
 ## --- GROUP DATAFRAME AFTER SELECTION
 st.subheader('Our selection !')
-df_grouped = df[mask].groupby(by=['title','type','platforms','release_year','all_genres','imdb_score','runtime']).count().reset_index()
-df_grouped.head(15).reset_index()[['title','type','platforms','release_year','all_genres','imdb_score','runtime']]
+df_grouped = df[mask].groupby(by=['title','type','platforms']).count().reset_index()
+df_grouped.head(15).reset_index()[['title','type','platforms']]
